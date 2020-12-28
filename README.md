@@ -1,0 +1,7 @@
+# PASARELA-ZIGBEE-PARA-ENTORNO-IOT
+
+Este proyecto propone el diseño de una arquitectura para crear una pasarela Zigbee para un entorno IoT. El diseño propuesto está pensado para ser flexible y poder adaptar la infraestructura para cumplir requisitos determinados para una red domótica.
+
+El proyecto se basa en el protocolo wireless Zigbee para crear una red de sensores y actuadores. Este protocolo se basa en el estándar IEEE 802.15.4 desarrollado para crear dispositivos que operan con batería y que requieren un consumo bajo de energía. Además de Zigbee, se utilizan diferentes tipos de tecnologías y herramientas que son muy utilizadas en la actualidad para el desarrollo de proyectos relacionados con dispositivos inteligentes.
+
+El marco de desarrollo de este proyecto lo mantenemos en el contexto de una red de sensores y actuadores que utilizan Zigbee como protocolo de comunicación. Para esta red, necesitamos obtener y procesar los datos de lectura de dichos sensores y los comandos enviados a los dispositivos actuadores. El objetivo de este proyecto es el diseño y desarrollo de una arquitectura con una gateway para una red Zigbee. La arquitectura permite que dicha red sea accesible a través de Internet y se desarrollan diferentes dashboards para la monitorización y el control de la red domótica. Apoyándonos en diferentes protocolos de comunicación, hardware y software, creamos un entorno IoT donde somos capaces de definir y controlar la lógica del funcionamiento y la interacción de los diferentes dispositivos IoT.

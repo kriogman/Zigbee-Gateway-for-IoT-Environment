@@ -1,0 +1,751 @@
+[
+    {
+        "id": "e2b9ef81.645ec",
+        "type": "tab",
+        "label": "My Home Station",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "6f5e66d9.4c064",
+        "type": "mqtt in",
+        "z": "e2b9ef81.645ec",
+        "name": "Switch",
+        "topic": "zigbee2mqtt/switch",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "f3f86583.831918",
+        "x": 70,
+        "y": 240,
+        "wires": [
+            [
+                "e8948c57.7500a8"
+            ]
+        ]
+    },
+    {
+        "id": "f91d96e8.a27fd8",
+        "type": "ui_text",
+        "z": "e2b9ef81.645ec",
+        "group": "8a4b74c2.d36a",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Occupancy",
+        "label": "Room: ",
+        "format": "{{msg.payload.status}}",
+        "layout": "row-center",
+        "x": 690,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "af69bd4b.eab0d",
+        "type": "ui_gauge",
+        "z": "e2b9ef81.645ec",
+        "name": "Battery level",
+        "group": "8a4b74c2.d36a",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "donut",
+        "title": "Battery",
+        "label": "%",
+        "format": "{{msg.payload.battery}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#b50000",
+            "#e6e600",
+            "#00a84a"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 690,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "edaa8664.9a044",
+        "type": "function",
+        "z": "e2b9ef81.645ec",
+        "name": "set brightness",
+        "func": "var x = msg.payload;\nmsg.payload = {\"brightness\":x}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1140,
+        "y": 580,
+        "wires": [
+            [
+                "d896da73.93aab"
+            ]
+        ]
+    },
+    {
+        "id": "e047623.3ebda2",
+        "type": "ui_gauge",
+        "z": "e2b9ef81.645ec",
+        "name": "Battery level",
+        "group": "50638708.6fe958",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "donut",
+        "title": "",
+        "label": "%",
+        "format": "{{msg.payload.battery}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#b50000",
+            "#e6e600",
+            "#00a84a"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 710,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "2dd55940.4e712e",
+        "type": "ui_gauge",
+        "z": "e2b9ef81.645ec",
+        "name": "Temperature",
+        "group": "4e95463b.845f8",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "donut",
+        "title": "",
+        "label": "ºC",
+        "format": "{{msg.payload.temperature}}",
+        "min": "-15",
+        "max": "60",
+        "colors": [
+            "#a00af5",
+            "#06b95b",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 710,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "e6388093.7ee748",
+        "type": "ui_gauge",
+        "z": "e2b9ef81.645ec",
+        "name": "Humidity",
+        "group": "ad4a838c.f198f",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "donut",
+        "title": "",
+        "label": "%",
+        "format": "{{msg.payload.humidity}}",
+        "min": "0",
+        "max": "100",
+        "colors": [
+            "#abfef0",
+            "#08dec7",
+            "#00cbfc"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 700,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "1ac27baa.4ed7b4",
+        "type": "function",
+        "z": "e2b9ef81.645ec",
+        "name": "Status",
+        "func": "\nif(msg.payload.contact===true){\n   msg.payload = {\"status\":\"Close\"};\n}\n\nif(msg.payload.contact===false){\n    msg.payload = {\"status\":\"Open\"};\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 690,
+        "y": 940,
+        "wires": [
+            [
+                "ca765238.926d28"
+            ]
+        ]
+    },
+    {
+        "id": "ca765238.926d28",
+        "type": "ui_text",
+        "z": "e2b9ef81.645ec",
+        "group": "10c425d4.ff5472",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "Door",
+        "label": "Door status:",
+        "format": "{{msg.payload.status}}",
+        "layout": "row-center",
+        "x": 870,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "419638bf.95a19",
+        "type": "function",
+        "z": "e2b9ef81.645ec",
+        "name": "Status",
+        "func": "if(msg.payload.battery_low===true){\n   msg.payload = {\"status\":\"Low\"};\n}\nif(msg.payload.battery_low===false){\n    msg.payload = {\"status\":\"Good\"};\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 690,
+        "y": 880,
+        "wires": [
+            [
+                "63bdb13c.95c1e"
+            ]
+        ]
+    },
+    {
+        "id": "63bdb13c.95c1e",
+        "type": "ui_text",
+        "z": "e2b9ef81.645ec",
+        "group": "10c425d4.ff5472",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Battery",
+        "label": "Battery power:",
+        "format": "{{msg.payload.status}}",
+        "layout": "row-center",
+        "x": 880,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "14b84fa.01fdd3",
+        "type": "function",
+        "z": "e2b9ef81.645ec",
+        "name": "Status",
+        "func": "if(msg.payload.occupancy===true){\n   msg.payload = {\"status\":\"Occupied\"};\n}\nif(msg.payload.occupancy===false){\n    msg.payload = {\"status\":\"Unoccupied\"};\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 490,
+        "y": 160,
+        "wires": [
+            [
+                "f91d96e8.a27fd8"
+            ]
+        ]
+    },
+    {
+        "id": "9731418d.8c5fa8",
+        "type": "mqtt in",
+        "z": "e2b9ef81.645ec",
+        "name": "Motion sensor",
+        "topic": "zigbee2mqtt/motion_sensor",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "f3f86583.831918",
+        "x": 90,
+        "y": 100,
+        "wires": [
+            [
+                "1eee05fc.6be80a"
+            ]
+        ]
+    },
+    {
+        "id": "1eee05fc.6be80a",
+        "type": "json",
+        "z": "e2b9ef81.645ec",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 310,
+        "y": 100,
+        "wires": [
+            [
+                "14b84fa.01fdd3",
+                "af69bd4b.eab0d"
+            ]
+        ]
+    },
+    {
+        "id": "e8948c57.7500a8",
+        "type": "json",
+        "z": "e2b9ef81.645ec",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 270,
+        "y": 240,
+        "wires": [
+            [
+                "160e344b.afe39c",
+                "2ae7bb41.aa14bc"
+            ]
+        ]
+    },
+    {
+        "id": "160e344b.afe39c",
+        "type": "ui_gauge",
+        "z": "e2b9ef81.645ec",
+        "name": "Battery level",
+        "group": "fcafb547.7b09b",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "donut",
+        "title": "Battery",
+        "label": "%",
+        "format": "{{msg.payload.battery}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#b50000",
+            "#e6e600",
+            "#00a84a"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 690,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "2ae7bb41.aa14bc",
+        "type": "function",
+        "z": "e2b9ef81.645ec",
+        "name": "On/Off click",
+        "func": "var brightness = msg.payload.brightness;\n\n\nif(msg.payload.click===\"on\"){\n    msg.payload={\"state\":\"ON\", \"brightness\":brightness};\n}\n\nif(msg.payload.click===\"off\")\n{\n    msg.payload={\"state\":\"OFF\", \"brightness\":brightness};\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 690,
+        "y": 300,
+        "wires": [
+            [
+                "d896da73.93aab"
+            ]
+        ]
+    },
+    {
+        "id": "d896da73.93aab",
+        "type": "mqtt out",
+        "z": "e2b9ef81.645ec",
+        "name": "Bulb",
+        "topic": "zigbee2mqtt/bulb/set",
+        "qos": "1",
+        "retain": "",
+        "broker": "f3f86583.831918",
+        "x": 1410,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "dc21052b.dc8fc",
+        "type": "mqtt in",
+        "z": "e2b9ef81.645ec",
+        "name": "Bulb",
+        "topic": "zigbee2mqtt/bulb",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "f3f86583.831918",
+        "x": 70,
+        "y": 440,
+        "wires": [
+            [
+                "8424cccb.9e7b68"
+            ]
+        ]
+    },
+    {
+        "id": "8424cccb.9e7b68",
+        "type": "json",
+        "z": "e2b9ef81.645ec",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 270,
+        "y": 440,
+        "wires": [
+            [
+                "2d93dab2.3dd66e",
+                "3cdf3781.5ff56",
+                "471d5ea7.1064d",
+                "5fef7ed7.a20be8"
+            ]
+        ]
+    },
+    {
+        "id": "2d93dab2.3dd66e",
+        "type": "ui_text",
+        "z": "e2b9ef81.645ec",
+        "group": "a2adfea8.b128c8",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "State: ",
+        "format": "{{msg.payload.state}}",
+        "layout": "row-center",
+        "x": 670,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "3cdf3781.5ff56",
+        "type": "ui_gauge",
+        "z": "e2b9ef81.645ec",
+        "name": "",
+        "group": "a2adfea8.b128c8",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Brightness",
+        "label": "units",
+        "format": "{{msg.payload.brightness}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#ff0000",
+            "#ff5c00",
+            "#fff700"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 690,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "694fb826.2f8df",
+        "type": "ui_switch",
+        "z": "e2b9ef81.645ec",
+        "name": "",
+        "label": "On/Off",
+        "tooltip": "",
+        "group": "fcafb547.7b09b",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "",
+        "style": "",
+        "onvalue": "ON",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "OFF",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "x": 910,
+        "y": 500,
+        "wires": [
+            [
+                "d896da73.93aab"
+            ]
+        ]
+    },
+    {
+        "id": "ec69b0fb.d50468",
+        "type": "ui_slider",
+        "z": "e2b9ef81.645ec",
+        "name": "",
+        "label": "Dimmer",
+        "tooltip": "",
+        "group": "a2adfea8.b128c8",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "end",
+        "topic": "",
+        "min": "1",
+        "max": "254",
+        "step": 1,
+        "x": 920,
+        "y": 580,
+        "wires": [
+            [
+                "edaa8664.9a044"
+            ]
+        ]
+    },
+    {
+        "id": "621c988c.057098",
+        "type": "mqtt in",
+        "z": "e2b9ef81.645ec",
+        "name": "Climate sensor",
+        "topic": "zigbee2mqtt/t&h_sensor",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "f3f86583.831918",
+        "x": 100,
+        "y": 740,
+        "wires": [
+            [
+                "4de27154.b55ab8"
+            ]
+        ]
+    },
+    {
+        "id": "d00b0d05.e630a8",
+        "type": "mqtt in",
+        "z": "e2b9ef81.645ec",
+        "name": "Door sensor",
+        "topic": "zigbee2mqtt/contact_sensor",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "f3f86583.831918",
+        "x": 90,
+        "y": 920,
+        "wires": [
+            [
+                "f5149cc0.f13db"
+            ]
+        ]
+    },
+    {
+        "id": "4de27154.b55ab8",
+        "type": "json",
+        "z": "e2b9ef81.645ec",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 350,
+        "y": 740,
+        "wires": [
+            [
+                "e047623.3ebda2",
+                "2dd55940.4e712e",
+                "e6388093.7ee748"
+            ]
+        ]
+    },
+    {
+        "id": "f5149cc0.f13db",
+        "type": "json",
+        "z": "e2b9ef81.645ec",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 350,
+        "y": 920,
+        "wires": [
+            [
+                "419638bf.95a19",
+                "1ac27baa.4ed7b4"
+            ]
+        ]
+    },
+    {
+        "id": "471d5ea7.1064d",
+        "type": "function",
+        "z": "e2b9ef81.645ec",
+        "name": "get brightness",
+        "func": "var x = msg.payload.brightness;\nmsg.payload = x;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 700,
+        "y": 580,
+        "wires": [
+            [
+                "ec69b0fb.d50468"
+            ]
+        ]
+    },
+    {
+        "id": "5fef7ed7.a20be8",
+        "type": "function",
+        "z": "e2b9ef81.645ec",
+        "name": "get state",
+        "func": "var x = msg.payload.state;\nmsg.payload = x;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 680,
+        "y": 500,
+        "wires": [
+            [
+                "694fb826.2f8df"
+            ]
+        ]
+    },
+    {
+        "id": "f3f86583.831918",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "a3hhszsbbgjpxj-ats.iot.eu-west-1.amazonaws.com",
+        "port": "8883",
+        "tls": "3360ccb5.71b1ac",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "8a4b74c2.d36a",
+        "type": "ui_group",
+        "z": "",
+        "name": "Motion Sensor",
+        "tab": "71b8b98c.2c89d8",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "50638708.6fe958",
+        "type": "ui_group",
+        "z": "",
+        "name": "Battery",
+        "tab": "f539f256.92b428",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "4e95463b.845f8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Temperature",
+        "tab": "f539f256.92b428",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "ad4a838c.f198f",
+        "type": "ui_group",
+        "z": "",
+        "name": "Humidity",
+        "tab": "f539f256.92b428",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "10c425d4.ff5472",
+        "type": "ui_group",
+        "z": "",
+        "name": "Door sensor",
+        "tab": "85f79cd0.66b178",
+        "order": 4,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "fcafb547.7b09b",
+        "type": "ui_group",
+        "z": "",
+        "name": "Switch",
+        "tab": "8971d200.6ba528",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "a2adfea8.b128c8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Bulb",
+        "tab": "8971d200.6ba528",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "3360ccb5.71b1ac",
+        "type": "tls-config",
+        "z": "",
+        "name": "AWSIot TLS",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "d1fd15fa42-certificate.pem.crt",
+        "keyname": "d1fd15fa42-private.pem.key",
+        "caname": "AmazonRootCA1.pem",
+        "servername": "",
+        "verifyservercert": true
+    },
+    {
+        "id": "71b8b98c.2c89d8",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Motion sensor",
+        "icon": "dashboard",
+        "order": 3,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "f539f256.92b428",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Climate station",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "85f79cd0.66b178",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Door sensor",
+        "icon": "dashboard",
+        "order": 4,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "8971d200.6ba528",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Lighting",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]

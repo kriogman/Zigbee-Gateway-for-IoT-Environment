@@ -1,4 +1,6 @@
-# PASARELA-ZIGBEE-PARA-ENTORNO-IOT
+# Zigbee Gateway for IoT Environment
+
+![Alt text](images/architecture.jpeg?raw=true "Title")
 
 This project proposes the design of an architecture to create a Zigbee gateway for an IoT environment. The proposed design is intended to be flexible and to be able to adapt the infrastructure to meet specific requirements for a home automation network.
 
